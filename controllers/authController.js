@@ -128,6 +128,8 @@ const authController = {
       const refresh_token = createRefreshToken({ id: user._id });
       res.cookie("refreshtoken", refresh_token, {
         httpOnly: true,
+        sameSite: "None",
+        secure: true,
         path: "/api/users/refresh_token",
         maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
       });
