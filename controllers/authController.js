@@ -127,13 +127,12 @@ const authController = {
 
       const refresh_token = createRefreshToken({ id: user._id });
       res.cookie("refreshtoken", refresh_token, {
-        // httpOnly: true,
-        secure: true,
-        path: "https://webshop-api.onrender.com/api/users/refresh_token",
+        httpOnly: true,
+        path: "/api/users/refresh_token",
         maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
       });
 
-      res.json({ msg: "Login success!", rf: refresh_token });
+      res.json({ msg: "Login success!" });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -142,7 +141,7 @@ const authController = {
     try {
       // console.log(req);
       const rf_token = req.cookies.refreshtoken;
-      // console.log("refreshtoken", rf_token);
+      console.log("refreshtoken ac", rf_token);
       if (!rf_token) return res.status(400).json({ msg: "Please login now!" });
 
       jwt.verify(rf_token, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
