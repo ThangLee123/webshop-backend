@@ -131,6 +131,10 @@ const authController = {
         sameSite: "None",
         secure: true,
         path: "/api/users/refresh_token",
+        domain:
+          process.env.NODE_ENV === "development"
+            ? ".localhost"
+            : ".webshop-backend-nknr-lkk1fw4sc-thanglee123.vercel.app",
         maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
       });
 
